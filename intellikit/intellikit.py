@@ -1,5 +1,4 @@
 """Main module."""
-pip install scikit-learn
 
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
