@@ -8,6 +8,16 @@ from scipy.stats import pearsonr
 import numpy as np
 
 def calculate_word_similarity(df, query, text_columns):
+    """Calculate the similarity score between the query and the case. This basic function returns a value of 1 for all words that match and a value of zero when the words differ
+
+    Args:
+        df (dataframme, required): The dataframme containing the cases
+        query (dictionary, required): The search query corresponding to a case you are looking for.
+        text_columns (list, required): The columns from the dataframme for which to compare with the query values.
+
+    Returns:
+        dataframme: The dataframme of the calculated similarity values for each case against the query. 
+    """    
     for column in text_columns:
         # Check for NaN values
         df[column] = df[column].fillna('')
