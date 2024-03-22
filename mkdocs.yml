@@ -81,6 +81,7 @@ nav:
     - Report Issues: https://github.com/ArthurKakande/intellikit/issues
     - Examples:
         - examples/intro.ipynb
+        - examples/Car_Search_System.ipynb
     - API Reference:
           - intellikit module: intellikit.md
           - common module: common.md
