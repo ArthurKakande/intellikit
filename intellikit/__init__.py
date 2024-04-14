@@ -5,3 +5,5 @@ __email__ = "kaksarthur@gmail.com"
 __version__ = "0.0.3"
 
 from .intellikit import *
+from .sim import *
+from .ir import *

@@ -1,3 +1,5 @@
 numpy
 pandas
 scikit-learn
+Levenshtein
+sentence_transformers

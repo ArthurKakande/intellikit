@@ -82,6 +82,11 @@ nav:
     - Examples:
         - examples/intro.ipynb
         - examples/Car_Search_System.ipynb
+        - examples/Document_Search_System.ipynb
+        - examples/Recommendation_System.ipynb
     - API Reference:
           - intellikit module: intellikit.md
           - common module: common.md
+          - ir module: ir.md
+          - sim module: sim.md
+

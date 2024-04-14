@@ -6,6 +6,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_extraction.text import TfidfVectorizer
 from scipy.stats import pearsonr
 import numpy as np
+from .sim import *
+from .ir import *
 
 def calculate_word_similarity(df, query, text_columns):
     """Calculate the similarity score between the query and the case. This basic function returns a value of 1 for all words that match and a value of zero when the words differ
