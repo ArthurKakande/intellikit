@@ -37,22 +37,22 @@ A key important aspect of CBR is similarity and retrieval. The purpose of retrie
 ## Graph-based case representation
 
 ## Text/String Attributes Similarity
-# Hamming distance
-# Hamming Similarity
-# Levenshtien distance
-# Levenshtien similarity
-# Level similarity
-# N-grams
+-   Hamming distance
+-   Hamming Similarity
+-   Levenshtien distance
+-   Levenshtien similarity
+-   Level similarity
+-   N-grams
 
 ## Document Retrieval (Information Retrieval)
-# Cosine similarity using Vector space model (TF - IDF) 
-# Cosine similarity using Okapi BM25
-# Cosine similarity using Sentence Transformers
+-   Cosine similarity using Vector space model (TF - IDF) 
+-   Cosine similarity using Okapi BM25
+-   Cosine similarity using Sentence Transformers
 
 ## Numeric Attribute Similarity
-# City block metric
-# Euclidean distance
-# Weighted euclidean distance
+-   City block metric
+-   Euclidean distance
+-   Weighted euclidean distance
 
 ## Upcoming Features that will be added in upcoming releases
 -   A question answering module.
