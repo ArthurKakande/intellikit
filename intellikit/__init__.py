@@ -2,7 +2,7 @@
 
 __author__ = """Arthur Kakande"""
 __email__ = "kaksarthur@gmail.com"
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 
 from .intellikit import *
 from .sim import *
