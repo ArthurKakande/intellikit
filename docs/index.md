@@ -1,6 +1,6 @@
 # Welcome to intellikit
 
-[![logo](intellikit_package.png)]
+![logo](intellikit_package.png)
 
 [![image](https://img.shields.io/pypi/v/intellikit.svg)](https://pypi.python.org/pypi/intellikit)
 
@@ -33,36 +33,44 @@ A key important aspect of CBR is similarity and retrieval. The purpose of retrie
     
 
 ## Feature_Value Pairs
-Description: Simplest representation using key-value pairs to describe a case.
-Example: Diagnosing a car problem.
-Case: "Car won't start"
-Feature 1: Engine cranks (Yes/No) - Value: No
-Feature 2: Warning lights (List) - Value: Battery light
-New problem: "Engine makes a rattling noise" - Features and values are compared to diagnose the new issue.
-Use Cases: Simple diagnostic systems, configuration tasks, filtering products based on features.
+  Simplest representation using key-value pairs to describe a case.
+  
+  Example: Diagnosing a car problem.
+  Case: "Car won't start"
+  Feature 1: Engine cranks (Yes/No) - Value: No
+  Feature 2: Warning lights (List) - Value: Battery light
+  New problem: "Engine makes a rattling noise" - Features and values are compared to diagnose the new issue.
+  
+  Use Cases: Simple diagnostic systems, configuration tasks, filtering products based on features.
 
 ## Textual case representation
-Description: Uses natural language to describe a case, similar to a story.
-Example: Customer service incident reports.
-Case: "Customer reported their computer wouldn't connect to Wi-Fi. Tried restarting the router and device with no success."
-New problem: Another customer has a similar issue. The textual description helps identify the common cause and solution.
-Use Cases: Customer service, incident reports, where narratives provide context for problem-solving.
+  Uses natural language to describe a case, similar to a story.
+  
+  Example: Customer service incident reports.
+  Case: "Customer reported their computer wouldn't connect to Wi-Fi. Tried restarting the router and device with no success."
+  New problem: Another customer has a similar issue. The textual description helps identify the common cause and solution.
+  
+  Use Cases: Customer service, incident reports, where narratives provide context for problem-solving.
 
 ## Object-oriented case representation
-Description: Cases are represented as objects with attributes, methods, and relationships.
-Example: Financial loan applications.
-Case: Loan application (Object)
-Attributes: Applicant name, income, loan amount, credit score.
-Methods: Calculate loan eligibility, determine interest rate.
-New problem: Another loan application is received. The object structure allows for easy comparison and reuse of past loan decisions based on applicant characteristics.
-Use Cases: Scenarios with well-defined objects and their interactions, financial analysis, design problems.
+  Cases are represented as objects with attributes, methods, and relationships.
+  
+  Example: Financial loan applications.
+  Case: Loan application (Object)
+  Attributes: Applicant name, income, loan amount, credit score.
+  Methods: Calculate loan eligibility, determine interest rate.
+  New problem: Another loan application is received. The object structure allows for easy comparison and reuse of past loan decisions based on applicant characteristics.
+  
+  Use Cases: Scenarios with well-defined objects and their interactions, financial analysis, design problems.
 
 ## Graph-based case representation
-Description: Cases are represented as nodes (entities) and edges (relationships) in a graph structure.
-Example: Medical diagnosis.
-Case: Patient with a fever (Node) connected to symptoms (Nodes) like cough, sore throat. Edges represent relationships between symptoms.
-New problem: Another patient with similar symptoms. The graph allows for reasoning based on connections and identifying potential diagnoses by comparing symptom relationships.
-Use Cases: Medical diagnosis, network analysis, problems involving complex relationships between entities.
+  Cases are represented as nodes (entities) and edges (relationships) in a graph structure.
+
+  Example: Medical diagnosis.
+  Case: Patient with a fever (Node) connected to symptoms (Nodes) like cough, sore throat. Edges represent relationships between symptoms.
+  New problem: Another patient with similar symptoms. The graph allows for reasoning based on connections and identifying potential diagnoses by comparing symptom relationships.
+  
+  Use Cases: Medical diagnosis, network analysis, problems involving complex relationships between entities.
 
 
 
