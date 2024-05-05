@@ -9,7 +9,7 @@ def retrieve_topk(cases, similarity_data, sim_column, k):
 
   Args:
       cases (pandas.DataFrame): DataFrame containing features
-      similarity_data(pandas.DataFrame): DataFrame contianing similarity scores for each feature and a 'total_similarity' column.
+      similarity_data(pandas.DataFrame): DataFrame containing similarity scores for each feature and a 'total_similarity' column.
       sim_column: the total similarity or weighted similarity column
       k (int): Number of top features to return.
 
