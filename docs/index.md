@@ -100,7 +100,7 @@ A key important aspect of CBR is similarity and retrieval. The purpose of retrie
 
 ## Retrieval
 -   Linear Retriever
--   ParallelLinear Retriever
+-   Parallel Linear Retriever
 -   MACFAC Retriever
 
 ## Upcoming Features that will be added in upcoming releases
