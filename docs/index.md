@@ -99,8 +99,8 @@ A key important aspect of CBR is similarity and retrieval. The purpose of retrie
 -   Weighted euclidean distance
 
 ## Retrieval
--   Linear
--   ParallelLinear
+-   Linear Retriever
+-   ParallelLinear Retriever
 -   MACFAC Retriever
 
 ## Upcoming Features that will be added in upcoming releases
