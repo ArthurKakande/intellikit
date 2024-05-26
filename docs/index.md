@@ -76,12 +76,13 @@ A key important aspect of CBR is similarity and retrieval. The purpose of retrie
 
 ## Text/String Attributes Similarity
 -   Hamming distance
--   Hamming Similarity
+-   Hamming Similarity (Normalized hamming distance)
 -   Levenshtien distance
--   Levenshtien similarity
+-   Levenshtien similarity (Normalized levenshtien distance)
 -   Level similarity
 -   N-grams
 -   Cosine Similarity
+-   Exact Match (Strings - Not case sensitive)
 
 ## Document Retrieval (Information Retrieval)
 -   Vector space model (TF - IDF) 
@@ -91,7 +92,16 @@ A key important aspect of CBR is similarity and retrieval. The purpose of retrie
 ## Numeric Attribute Similarity
 -   City block metric
 -   Euclidean distance
+-   Exact Match (Symmetric)
+-   Log similarity
+-   Asymmetric strategy with Case Higher 
+-   Asymmetric strategy with Query Higher
 -   Weighted euclidean distance
+
+## Retrieval
+-   Linear
+-   ParallelLinear
+-   MACFAC
 
 ## Upcoming Features that will be added in upcoming releases
 -   A question answering module.

@@ -3,6 +3,7 @@
 
 import pandas as pd
 import numpy as np
+import math
 import Levenshtein
 from nltk.util import ngrams
 from nltk.metrics.distance import edit_distance
@@ -228,3 +229,180 @@ def sim_weighted(df, query, weights):
   weighted_df['weighted_total'] = weighted_df.sum(axis=1)
 
   return weighted_df
+
+def case_higher_than_query_similarity(query, case):
+    if case > query:
+        return 0.0
+    else:
+        return 1.0
+#If the case value is higher than the query value, the similarity will always be 0.0
+
+def query_higher_than_case_similarity(query, case):
+    if query > case:
+        return 0.0
+    else:
+        return 1.0
+#If the query value is higher than the case value, the similarity will always be 0.0
+
+def query_exact_match(query, case):
+    if query == case:
+        return 1.0
+    else:
+        return 0.0
+#If the query value is different from the case value, the similarity will always be 0.0
+
+def check_string_em(str1, str2):
+    """
+    Check if two strings are an exact match (case-insensitive) and return similarity score.
+
+    Args:
+        str1: The first string.
+        str2: The second string.
+
+    Returns:
+        float: 1.0 if the strings are an exact match (case-insensitive), 0.0 otherwise.
+    """
+    if str1.strip().lower() == str2.strip().lower():
+        return 1.0
+    else:
+        return 0.0
+
+# Define the calculate_text_similarity_exact_match function
+def sim_stringEM(df, query, feature):
+    """
+    Checks if two strings are an exact match (case-insensitive) and returns the similarity scores.
+
+    Args:
+        df: The case charactrization.
+        query: The query being checked.
+        feature: The specific feature.
+
+    Returns:
+        A column containing the similarity scores.
+    """
+    # Get the query value for the feature
+    query_value = query[feature].iloc[0]
+
+    # Calculate Levenshtein distance between query value and each value in the feature column
+    sem_similarities = df[feature].apply(lambda x: check_string_em(x, query_value))
+
+    # Convert the Series to a DataFrame column with the feature name retained
+    df[feature] = pd.DataFrame(sem_similarities, columns=[feature])
+
+    return df[feature]
+
+# Define the case_higher function
+def sim_CaseHigher(df, query, feature):
+    """
+    If the case value is higher than the query value, the similarity will always be 0.0.
+
+    Args:
+        df: The case charactrization.
+        query: The query being checked.
+        feature: The specific feature.
+
+    Returns:
+        A column containing the similarity scores.
+    """
+    # Get the query value for the feature
+    query_value = query[feature].iloc[0]
+
+    # Calculate "case higher" distance between query value and each value in the feature column
+    ch_distances = df[feature].apply(lambda x: case_higher_than_query_similarity(x, query_value))
+
+    # Convert the Series to a DataFrame column with the feature name retained
+    df[feature] = pd.DataFrame(ch_distances, columns=[feature])
+
+    return df[feature]
+
+
+# Define the calculate_query_higher_similarity function
+def sim_QueryHigher(df, query, feature):
+    """
+    If the query value is higher than the case value, the similarity will always be 0.0.
+
+    Args:
+        df: The case charactrization.
+        query: The query being checked.
+        feature: The specific feature.
+
+    Returns:
+        A column containing the similarities.
+    """
+    # Get the query value for the feature
+    query_value = query[feature].iloc[0]
+
+    # Calculate "query higher" distance between query value and each value in the feature column
+    qh_distances = df[feature].apply(lambda x: query_higher_than_case_similarity(x, query_value))
+
+    # Convert the Series to a DataFrame column with the feature name retained
+    df[feature] = pd.DataFrame(qh_distances, columns=[feature])
+
+    return df[feature]
+
+# Define the exact match similarity function
+def sim_numEM(df, query, feature):
+    """
+    Check if the query and the case are an exact match. (Only works for numeric data type)
+
+    Args:
+        df: The case charactrization.
+        query: The query being checked.
+        feature: The specific feature.
+
+    Returns:
+        A column with the similarities.
+    """
+    # Get the query value for the feature
+    query_value = query[feature].iloc[0]
+
+    # Calculate the "exact match" distance between query value and each value in the feature column
+    em_distances = df[feature].apply(lambda x: query_exact_match(x, query_value))
+
+    # Convert the Series to a DataFrame column with the feature name retained
+    df[feature] = pd.DataFrame(em_distances, columns=[feature])
+
+    return df[feature]
+
+def log_similarity(query, case):
+    """
+    Calculate similarity score based on the log values (base 10) of two numeric values.
+
+    Args:
+        query: The query numeric value.
+        case: The case numeric value.
+
+    Returns:
+        float: Similarity score between 0 and 1.
+    """
+    # Convert values to their logarithmic values (base 10)
+    log_query = math.log10(query)
+    log_case = math.log10(case)
+
+    # Calculate the absolute difference between the log values
+    distance = abs(log_query - log_case)
+
+    # Convert the distance to a similarity score between 0 and 1
+    # Here we assume a maximum possible distance for normalization, for instance, log10(max_value) - log10(min_value)
+    # If you know the expected range of your values, you can use that for better normalization
+    max_distance = math.log10(10**6)  # Example max range for normalization
+    similarity_score = max(0, 1 - distance / max_distance)
+
+    return similarity_score
+
+# Define the log similarity function
+def sim_logDifference(df, query, feature):
+    """
+    Calculate similarity score based on the log values (base 10) of two numeric values.
+
+    """
+    # Get the query value for the feature
+    query_value = query[feature].iloc[0]
+
+    # Calculate the "exact match" distance between query value and each value in the feature column
+    log_distances = df[feature].apply(lambda x: log_similarity(x, query_value))
+
+    # Convert the Series to a DataFrame column with the feature name retained
+    df[feature] = pd.DataFrame(log_distances, columns=[feature])
+
+    return df[feature]
