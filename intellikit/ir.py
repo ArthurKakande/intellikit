@@ -117,10 +117,10 @@ def bm25(query, documents, k=5, b=0.75, k1=1.5):
     return top_k_similar_docs
 
 
-def sentence_transformers_retrieval(query, documents, k=5):
+def sentence_transformers_retrieval(query, documents, k=5, model_name='paraphrase-MiniLM-L6-v2'):
     """Apply sentence transformers to retrieve top k similar documents."""
     # Load pre-trained sentence transformer model
-    model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
+    model = SentenceTransformer(model_name)
 
     # Encode query and documents into embeddings
     query_embedding = model.encode([query])[0]
