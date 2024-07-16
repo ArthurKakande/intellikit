@@ -4,3 +4,4 @@ scikit-learn
 Levenshtein
 sentence_transformers
 nltk
+datasets
