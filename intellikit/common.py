@@ -2,6 +2,7 @@
 """
 import pandas as pd
 from multiprocessing import Pool, cpu_count
+import time
 
 
 def retrieve_topk(cases, similarity_data, sim_column, k):
@@ -187,3 +188,15 @@ def dataframe_to_dict(df, orientation="columns"):
 
     # Convert DataFrame to dictionary
     return df.to_dict(orient=orientation)
+
+#Print texts with a slight delay
+def stream_text(text, delay=0.02):
+    """_summary_
+
+    Args:
+        text (_type_): The text to be printed with a slight delay for example a paragraph or document
+        delay (float, optional): Amount of time to delay. Defaults to 0.02.
+    """
+    for char in text:
+        print(char, end = "", flush = True)
+        time.sleep(delay)

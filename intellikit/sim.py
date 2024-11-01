@@ -4,9 +4,7 @@
 import pandas as pd
 import numpy as np
 import math
-#import Levenshtein
 from nltk.util import ngrams
-#from nltk.metrics.distance import edit_distance
 from scipy.spatial.distance import cityblock, euclidean
 from datetime import datetime, timedelta
 
@@ -16,8 +14,6 @@ def hamming_distance(str1, str2):
     return sum(c1 != c2 for c1, c2 in zip(str1, str2))
 
 # Define the Levenshtein distance function
-#def levenshtein_distance(str1, str2):
-#    return edit_distance(str1, str2)
 def levenshtein_distance(str1, str2):
     # Initialize a matrix where dp[i][j] represents the distance between
     # the first i characters of str1 and the first j characters of str2.
@@ -248,15 +244,24 @@ def calculate_st_difference(df, user_time, opening_feature, closing_feature):
     return df['time']
 
 
-def sim_weighted(df, query, weights):
-  similarity_results = [similarity_functions[feature](df, query, feature) for feature in df.columns]
-  result = pd.concat(similarity_results, axis=1)
-  weighted_df = result * pd.Series(weights)
-  weighted_df['weighted_total'] = weighted_df.sum(axis=1)
-
-  return weighted_df
+#def sim_weighted(df, query, weights):
+#  similarity_results = [similarity_functions[feature](df, query, feature) for feature in df.columns]
+#  result = pd.concat(similarity_results, axis=1)
+#  weighted_df = result * pd.Series(weights)
+#  weighted_df['weighted_total'] = weighted_df.sum(axis=1)
+#
+#  return weighted_df
 
 def case_higher_than_query_similarity(query, case):
+    """Checks if a case is higher than the query
+
+    Args:
+        query (_type_): _description_
+        case (_type_): _description_
+
+    Returns:
+        A similarity score: 0 if case is higher and 1 if not
+    """
     if case > query:
         return 0.0
     else:
@@ -436,6 +441,15 @@ def sim_logDifference(df, query, feature):
 
 #Calculate the cosine similarity between two sentences
 def sent_cosine_similarity(sentence1, sentence2):
+    """Calculates the cosine similarity between two sentences. (For word vectors used vector_cosine_similarity)
+
+    Args:
+        sentence1 (text/words): _description_
+        sentence2 (text/words): _description_
+
+    Returns:
+        numeric score: bwtween 0 and 1
+    """
     # Convert sentences to lowercase and split into words
     words1 = sentence1.lower().split()
     words2 = sentence2.lower().split()
@@ -480,7 +494,7 @@ def sim_sentence_cosine(df, query, feature):
 
 #Calculate raw vector cosine similarities
 def vector_cosine_similarity(v1, v2):
-    """Compute cosine similarity between two vectors."""
+    """Compute cosine similarity between two vectors. (For text/words use sent_cosine_similarity)"""
     dot_product = np.dot(v1, v2)
     norm_v1 = np.linalg.norm(v1)
     norm_v2 = np.linalg.norm(v2)
