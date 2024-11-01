@@ -4,9 +4,9 @@
 import pandas as pd
 import numpy as np
 import math
-import Levenshtein
+#import Levenshtein
 from nltk.util import ngrams
-from nltk.metrics.distance import edit_distance
+#from nltk.metrics.distance import edit_distance
 from scipy.spatial.distance import cityblock, euclidean
 from datetime import datetime, timedelta
 
@@ -16,8 +16,34 @@ def hamming_distance(str1, str2):
     return sum(c1 != c2 for c1, c2 in zip(str1, str2))
 
 # Define the Levenshtein distance function
+#def levenshtein_distance(str1, str2):
+#    return edit_distance(str1, str2)
 def levenshtein_distance(str1, str2):
-    return edit_distance(str1, str2)
+    # Initialize a matrix where dp[i][j] represents the distance between
+    # the first i characters of str1 and the first j characters of str2.
+    dp = [[0] * (len(str2) + 1) for _ in range(len(str1) + 1)]
+
+    # Set up the initial distances when one of the strings is empty.
+    for i in range(len(str1) + 1):
+        dp[i][0] = i
+    for j in range(len(str2) + 1):
+        dp[0][j] = j
+
+    # Compute the distances.
+    for i in range(1, len(str1) + 1):
+        for j in range(1, len(str2) + 1):
+            if str1[i - 1] == str2[j - 1]:  # No change needed if characters are the same.
+                dp[i][j] = dp[i - 1][j - 1]
+            else:
+                # Calculate costs for substitution, insertion, and deletion.
+                substitution_cost = dp[i - 1][j - 1] + 1
+                insertion_cost = dp[i][j - 1] + 1
+                deletion_cost = dp[i - 1][j] + 1
+                # Find the minimum of these three options.
+                dp[i][j] = min(substitution_cost, insertion_cost, deletion_cost)
+
+    # The bottom-right corner of the matrix contains the final Levenshtein distance.
+    return dp[-1][-1]
 
 # Define the n-gram similarity function
 def ngram_similarity(str1, str2, n=2):
@@ -404,5 +430,71 @@ def sim_logDifference(df, query, feature):
 
     # Convert the Series to a DataFrame column with the feature name retained
     df[feature] = pd.DataFrame(log_distances, columns=[feature])
+
+    return df[feature]
+
+
+#Calculate the cosine similarity between two sentences
+def sent_cosine_similarity(sentence1, sentence2):
+    # Convert sentences to lowercase and split into words
+    words1 = sentence1.lower().split()
+    words2 = sentence2.lower().split()
+
+    # Build a vocabulary of unique words from both sentences
+    unique_words = set(words1).union(set(words2))
+
+    # Create frequency vectors for each sentence based on the vocabulary
+    freq_vector1 = []
+    freq_vector2 = []
+
+    for word in unique_words:
+        freq_vector1.append(words1.count(word))
+        freq_vector2.append(words2.count(word))
+
+    # Calculate the dot product of the two vectors
+    dot_product = sum(f1 * f2 for f1, f2 in zip(freq_vector1, freq_vector2))
+
+    # Calculate the magnitude of each vector
+    magnitude1 = math.sqrt(sum(f ** 2 for f in freq_vector1))
+    magnitude2 = math.sqrt(sum(f ** 2 for f in freq_vector2))
+
+    # Handle the case when one of the magnitudes is zero (no overlap in words)
+    if magnitude1 == 0 or magnitude2 == 0:
+        return 0.0
+
+    # Calculate and return cosine similarity
+    return dot_product / (magnitude1 * magnitude2)
+
+#Define sentence cosine similarity
+def sim_sentence_cosine(df, query, feature):
+    # Get the query value for the feature
+    query_value = query[feature].iloc[0]
+
+    # Calculate Euclidean distance between query value and each value in the feature column
+    sent_cos_similarities = df[feature].apply(lambda x: sent_cosine_similarity(x, query_value))
+
+    # Convert the Series to a DataFrame column with the feature name retained
+    df[feature] = pd.DataFrame(sent_cos_similarities, columns=[feature])
+
+    return df[feature]
+
+#Calculate raw vector cosine similarities
+def vector_cosine_similarity(v1, v2):
+    """Compute cosine similarity between two vectors."""
+    dot_product = np.dot(v1, v2)
+    norm_v1 = np.linalg.norm(v1)
+    norm_v2 = np.linalg.norm(v2)
+    return dot_product / (norm_v1 * norm_v2)
+
+#Define raw vector sim function
+def sim_vector_cosine(df, query, feature):
+    # Get the query value for the feature
+    query_value = query[feature].iloc[0]
+
+    # Calculate Euclidean distance between query value and each value in the feature column
+    vector_similarities = df[feature].apply(lambda x: vector_cosine_similarity(x, query_value))
+
+    # Convert the Series to a DataFrame column with the feature name retained
+    df[feature] = pd.DataFrame(vector_similarities, columns=[feature])
 
     return df[feature]

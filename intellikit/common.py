@@ -159,3 +159,31 @@ def macfacRetriever(df, query, mac_features, fac_features, similarity_functions,
     filtered_df = mac_stage(df, query, mac_features, similarity_functions, top_n_mac)
     top_similar_cases = fac_stage(filtered_df, query, fac_features, similarity_functions, feature_weights, top_n_fac)
     return top_similar_cases
+
+#Dataframme to dictionary
+def dataframe_to_dict(df, orientation="columns"):
+    """
+    Convert a DataFrame to a dictionary in various orientations.
+
+    Parameters:
+    - df: The DataFrame to convert.
+    - orientation: The dictionary orientation.
+      Options:
+      - "columns": {column -> {index -> value}}
+      - "index": {index -> {column -> value}}
+      - "records": [{column -> value}, ... , {column -> value}]
+      - "list": {column -> [values]}
+      - "split": Dict with keys: index, columns, and data
+
+    Returns:
+    - Dictionary representation of the DataFrame.
+    """
+    # Supported orientations for to_dict() method
+    valid_orientations = {"dict", "index", "records", "list", "split"}
+
+    # Check if the given orientation is valid
+    if orientation not in valid_orientations:
+        raise ValueError(f"Invalid orientation. Choose from {', '.join(valid_orientations)}")
+
+    # Convert DataFrame to dictionary
+    return df.to_dict(orient=orientation)
