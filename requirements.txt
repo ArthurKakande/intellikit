@@ -1,6 +1,8 @@
 numpy
 pandas
 scikit-learn
+levenshtein
 sentence_transformers
 nltk
 datasets
+fsspec==2024.10.0
