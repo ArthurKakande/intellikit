@@ -448,7 +448,7 @@ def sent_cosine_similarity(sentence1, sentence2):
         sentence2 (text/words): _description_
 
     Returns:
-        numeric score: bwtween 0 and 1
+        numeric score: between 0 and 1
     """
     # Convert sentences to lowercase and split into words
     words1 = sentence1.lower().split()
