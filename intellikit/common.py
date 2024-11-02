@@ -191,10 +191,11 @@ def dataframe_to_dict(df, orientation="columns"):
 
 #Print texts with a slight delay
 def stream_text(text, delay=0.02):
-    """_summary_
+    """
+    Printing text with a slight delay like ChatGPT
 
     Args:
-        text (_type_): The text to be printed with a slight delay for example a paragraph or document
+        text (plain text): The text to be printed with a slight delay for example a paragraph or document
         delay (float, optional): Amount of time to delay. Defaults to 0.02.
     """
     for char in text:

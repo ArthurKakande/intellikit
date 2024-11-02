@@ -3,16 +3,34 @@
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
-
 def cosine_similarity(v1, v2):
-    """Compute cosine similarity between two vectors."""
+    """
+    Compute the cosine similarity between two vectors.
+
+    Parameters:
+    v1 (numpy.ndarray): The first vector.
+    v2 (numpy.ndarray): The second vector.
+
+    Returns:
+    float: The cosine similarity between the two vectors.
+    """
     dot_product = np.dot(v1, v2)
     norm_v1 = np.linalg.norm(v1)
     norm_v2 = np.linalg.norm(v2)
     return dot_product / (norm_v1 * norm_v2)
 
 def vector_space_model(query, documents, k=5):
-    """Implement Vector Space Model to retrieve top k similar documents to a query."""
+    """
+    Calculates the top k similar documents to a given query using the Vector Space Model.
+
+    Args:
+        query (str): The query string.
+        documents (list): A list of document strings.
+        k (int, optional): The number of similar documents to return. Defaults to 5.
+
+    Returns:
+        list: A list of tuples containing the top k similar documents and their similarity scores.
+    """
     # Tokenize query and documents
     query_tokens = query.lower().split()
     document_tokens = [doc.lower().split() for doc in documents]
@@ -66,7 +84,19 @@ def vector_space_model(query, documents, k=5):
 
 
 def bm25(query, documents, k=5, b=0.75, k1=1.5):
-    """Implement BM25 algorithm to retrieve top k similar documents to a query."""
+    """
+    Implement BM25 algorithm to retrieve top k similar documents to a query.
+
+    Parameters:
+    query (str): The query string.
+    documents (list): A list of document strings.
+    k (int, optional): The number of top similar documents to retrieve. Defaults to 5.
+    b (float, optional): The parameter controlling the impact of document length on BM25 score. Defaults to 0.75.
+    k1 (float, optional): The parameter controlling the impact of term frequency on BM25 score. Defaults to 1.5.
+
+    Returns:
+    list: A list of tuples containing the top k similar documents and their corresponding BM25 scores.
+    """
     # Tokenize query and documents
     query_tokens = query.lower().split()
     document_tokens = [doc.lower().split() for doc in documents]
@@ -118,7 +148,18 @@ def bm25(query, documents, k=5, b=0.75, k1=1.5):
 
 
 def sentence_transformers_retrieval(query, documents, k=5, model_name='paraphrase-MiniLM-L6-v2'):
-    """Apply sentence transformers to retrieve top k similar documents."""
+    """
+    Apply sentence transformers to retrieve top k similar documents.
+
+    Args:
+        query (text): A search query for a document.
+        documents (list): A list of documents for the search.
+        k (int, optional): Number of top results to return. Defaults to 5.
+        model_name (str, optional): Open source sentence model to use. Defaults to 'paraphrase-MiniLM-L6-v2'.
+
+    Returns:
+        list: A list of documents relevant to the search query.
+    """
     # Load pre-trained sentence transformer model. Specify the model using model_name
     model = SentenceTransformer(model_name)
 
